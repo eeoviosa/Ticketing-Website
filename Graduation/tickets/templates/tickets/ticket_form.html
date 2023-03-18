@@ -1,0 +1,14 @@
+{% extends 'tickets/layout.html'%}
+{%body block%}
+<form action="{% url view %}" method="post">
+    <input type = Text placeholder="Name" name = name>
+    <input type = Text placeholder="Student ID" name = studentid>
+    <input type = list list = 'available' placeholder="Number Of Tickets" name = num_of_tickets>
+    <input type = 'submit' placeholder="Submit_Form" name = "submit">
+    <datalist id = 'available'>
+    {% for tickets in max_tickets%}
+        <option value=tickets></option>
+    {%endfor%}
+    </datalist>
+</form>
+{%endbody%}
