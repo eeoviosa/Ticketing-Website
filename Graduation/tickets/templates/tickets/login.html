@@ -1,0 +1,12 @@
+{% extends 'tickets/layout.html'%}
+{% block body%}
+    <form action="{% url 'login' %}" method = "POST">
+        {%csrf_token%}
+        {%if message%}
+            <h1>{{message}}</h1>
+        {%endif%}
+        <input type="text" name = 'username' placeholder = "Username">
+        <input type="password" name = 'password' placeholder = "Password" >
+        <input type="submit" name = 'submit' placeholder="Login">  
+    </form>
+{%endblock%}

@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Users(models.Model):
+class Ticket_Requests(models.Model):
     tickets_ordered = models.IntegerField()
     student_name = models.CharField(max_length=64)
     studentID = models.IntegerField(unique=True)
