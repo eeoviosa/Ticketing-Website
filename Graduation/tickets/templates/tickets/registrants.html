@@ -4,19 +4,19 @@
 <tr>
 <th>Student Name</th>
 <th>Student_ID</th>
-<th>Number of Tickets:</th>
+<th>Number of Tickets</th>
 </tr>
+<br>
 {%for user in users%}
     <tr>
-        
         <td>{{user.student_name}}</td>
-        
-        <td>{{user.studentID}} </td>
-        
+        <td>{{user.studentID}}</td>
         <td>{{user.tickets_ordered}}</td>
+    </tr>
+   
 {%endfor%}
-</tr>
->
+
+
        
 
 {%endblock%}
