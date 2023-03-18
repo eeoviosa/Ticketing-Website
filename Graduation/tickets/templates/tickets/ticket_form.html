@@ -1,15 +1,15 @@
 {% extends 'tickets/layout.html'%}
 {%block body%}
-<form method="post">
+<form action = "{% url 'add' %}" method="post">
     {%csrf_token%}
     <input type = Text placeholder="Name" name = name>
-    <input type = Text placeholder="Student ID" name = studentid>
+    <input type = number placeholder="Student ID" name = studentid>
     <input type = list list = 'available' placeholder="Number Of Tickets" name = num_of_tickets>
     <input type = Submit placeholder="Submit_Form" name = "submit">
     <datalist id = 'available'>
 
     {% for tickets in max_tickets%}
-        <option value={{tickets}}></option>
+        <option type = number value={{tickets}}></option>
     {%endfor%}
     </datalist>
 </form>

@@ -1,0 +1,22 @@
+{% extends 'tickets/layout.html'%}
+{%block body%}
+<h1>Data of Students</h1>
+<tr>
+<th>Student Name</th>
+<th>Student_ID</th>
+<th>Number of Tickets:</th>
+</tr>
+{%for user in users%}
+    <tr>
+        
+        <td>{{user.student_name}}</td>
+        
+        <td>{{user.studentID}} </td>
+        
+        <td>{{user.tickets_ordered}}</td>
+{%endfor%}
+</tr>
+>
+       
+
+{%endblock%}
