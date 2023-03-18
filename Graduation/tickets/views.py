@@ -13,7 +13,9 @@ def index(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login") )
     else:
-        return HttpResponseRedirect("tickets/home.html")
+        return HttpResponseRedirect("tickets/home.html", {
+            "user": request.user.username
+        })
 
 
 def add(request):
@@ -22,7 +24,6 @@ def add(request):
     if request.method == "POST":
         users = Ticket_Requests(student_name = request.POST["name"], studentID = request.POST["studentid"], tickets_ordered = request.POST["num_of_tickets"])
         users.save()
-        logout(request)
         return render(request, 'tickets/confirm.html',
                                     {
                                         "users": Ticket_Requests.objects.all().values()
@@ -36,13 +37,15 @@ def logt(request):
 
    
 def logn(request):
-     if request.method == "POST":
+        
+    if request.method == "POST":
         user = authenticate(request, username = request.POST["username"], password = request.POST["password"])
         if user is not None:
-         login(request, user)
-         return HttpResponseRedirect(reverse("add"))
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, 'tickets/login.html', {"message": message})
-     return render(request, 'tickets/login.html')
+    elif request.method =="POST":
+    return HttpResponseRedirect(reverse("index"))
    
     
