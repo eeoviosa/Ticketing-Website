@@ -1,8 +1,9 @@
 {% extends 'tickets/layout.html'%}
 {% block body%}
-<h1>Welcome {{user}}</h1>
+<h1>Welcome {{request.user.username}}</h1>
 <p> Welcome Graduate, to add a ticket click here:<a href="{% url 'add'%}">Tickets</a>. To make a new ticket request click here: <a href="">New Ticket Request</a>
     
-<div><a href="{% url logout %}">Logout</a></div>
+<div><a href="{% url 'logout' %}">Logout</a></div>
 </p>
+
 {%endblock%}

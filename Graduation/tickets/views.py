@@ -8,14 +8,13 @@ from django.urls import reverse
 # Create your views here.
 
 max_tickets = 6
-message = "Invalid Credentials"
+message = 'Invalid Credentials'
+
 def index(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("login") )
-    else:
-        return HttpResponseRedirect("tickets/home.html", {
-            "user": request.user.username
-        })
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("login"))
+    return render(request, 'tickets/home.html')
+    
 
 
 def add(request):
@@ -33,19 +32,18 @@ def add(request):
         "max_tickets": range(1, max_tickets + 1)
     })
 def logt(request):
-    logout(request)
+    return  logout(request)
 
    
 def logn(request):
-        
-    if request.method == "POST":
+    if request.method == 'POST':
         user = authenticate(request, username = request.POST["username"], password = request.POST["password"])
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, 'tickets/login.html', {"message": message})
-    elif request.method =="POST":
-    return HttpResponseRedirect(reverse("index"))
+            return render(request, 'tickets/login.html', 
+                          {"message": message})
+    return render(request, 'tickets/login.html')
    
     
