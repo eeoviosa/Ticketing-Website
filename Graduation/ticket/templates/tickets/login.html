@@ -2,14 +2,20 @@
 {% block body%}
 
 {%if message%}
-<h1>{{message}}</h1>
+<h1  style= "color: red">{{message}}</h1>
 {%endif%}
-    <form action="{% url 'login' %}" method = "POST">
+    <form action="{% url 'login' %}" method = "POST" >
         {%csrf_token%}
-    
-       
-        <input type="text" name = 'username' placeholder = "Username">
-        <input type="password" name = 'password' placeholder = "Password" >
-        <input type="submit" name = 'submit' placeholder="Login">  
-    </form>
+        <div class="mb-3">
+        <label style= "margin: 10px;"for="username" class="form-label">Username</label>
+        <input class = "form-control" type ="text" name = 'username' id = 'username'>
+        </div>
+        <div class="mb-3">
+        <label  style= "margin: 10px;" for="password" class="form-label">Password</label>
+        <input class = "form-control" type="password" name = 'password'>
+        </div>
+        <div>
+        <button  style= "margin: 10px;"class = "btn btn-primary" type="submit" name = 'submit'>Login</button>  
+        </div>
+      </form>
 {%endblock%}
