@@ -32,7 +32,8 @@ def add(request):
         "max_tickets": range(1, max_tickets + 1)
     })
 def logt(request):
-    return  logout(request)
+    logout(request)
+    return render(request, 'tickets/login.html')
 
    
 def logn(request):
