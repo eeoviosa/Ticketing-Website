@@ -4,7 +4,7 @@
     {%csrf_token%}
    <div class="mb-3"> 
     <label for="firstname" class="form-label" >First Name</label>
-    <input type = Text class="form-control is-invalid has-validation"  name = firstname id = 'firstname' aria-describedby="validationServerFirstNameFeedback" required>
+    <input type = Text class="form-control is-invalid has-validation"  name = "first" id = 'firstname' aria-describedby="validationServerFirstNameFeedback" required>
     </div>
     <div id="validationServerFirstNameFeedback" class="invalid-feedback">
       Please Enter a First Name.
@@ -12,7 +12,7 @@
    
     <div class="mb-3"> 
         <label for="lastname" class="form-label">Last Name</label>
-        <input type = Text class="form-control is-invalid has-validation"  name = lastname id = 'lastname' aria-describedby="validationServerLastNameFeedback" required>
+        <input type = Text class="form-control is-invalid has-validation"  name = "last" id = 'lastname' aria-describedby="validationServerLastNameFeedback" required>
        
     </div>
 
@@ -21,7 +21,7 @@
     </div>
    <div class="mb-3">
     <label for="studentid" class="form-label">Student ID</label>
-    <input type = number class="form-control is-invalid has-validation"  name = studentid id = 'studentid' aria-describedby="validationServerStudentIDFeedback" required>
+    <input type = number class="form-control is-invalid has-validation"  name = "id" id = 'studentid' aria-describedby="validationServerStudentIDFeedback" required>
     
     </div> 
    
@@ -30,7 +30,7 @@
     </div>
     <div class="mb-3">
         <label for="num_of_tickets" class="form-label">Number Of Tickets</label>
-        <select class="form-select is-invalid" aria-label="num_of_tickets" id = num_of_tickets aria-describedby="validationServerTicketsFeedback" required>
+        <select type = number class="form-select is-invalid" name = "tickets_number" id = num_of_tickets aria-describedby="validationServerTicketsFeedback" required>
             <option selected disabled value>Choose.....</option>
             {% for tickets in max_tickets%}
             <option type = number value={{tickets}}>{{tickets}}</option>
@@ -43,7 +43,7 @@
     </div>
 
     <div>
-        <input  style="margin: 10px;" type="submit" aria-placeholder="Submit">
+        <input  style="margin: 10px; color:blue;" type="submit" aria-placeholder="Submit">
     </div>
   
 </form>

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User 
-from .models import Ticket_Requests
+from .models import Ticket_Request
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -21,11 +21,11 @@ def add(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login") )
     if request.method == "POST":
-        users = Ticket_Requests(student_name = request.POST["name"], studentID = request.POST["studentid"], tickets_ordered = request.POST["num_of_tickets"])
+        users = Ticket_Request(first_name = request.POST["first"], last_name = request.POST["last"], studentID = request.POST["id"], tickets_ordered = request.POST["tickets_number"])
         users.save()
         return render(request, 'tickets/confirm.html',
                                     {
-                                        "users": Ticket_Requests.objects.all().values()
+                                        "users": Ticket_Request.objects.all().values()
                             
                                     })
     return render(request, 'tickets/ticket_form.html', {
