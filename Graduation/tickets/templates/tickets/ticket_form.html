@@ -3,32 +3,48 @@
 <form action = "{% url 'add' %}" method="post">
     {%csrf_token%}
    <div class="mb-3"> 
-    <label for="firstname" class="form-label">First Name</label>
-    <input type = Text class="form-control"  name = firstname id = 'firstname'>
-   
+    <label for="firstname" class="form-label" >First Name</label>
+    <input type = Text class="form-control is-invalid has-validation"  name = firstname id = 'firstname' aria-describedby="validationServerFirstNameFeedback" required>
     </div>
+    <div id="validationServerFirstNameFeedback" class="invalid-feedback">
+      Please Enter a First Name.
+    </div>
+   
     <div class="mb-3"> 
         <label for="lastname" class="form-label">Last Name</label>
-        <input type = Text class="form-control"  name = lastname id = 'lastname'>
+        <input type = Text class="form-control is-invalid has-validation"  name = lastname id = 'lastname' aria-describedby="validationServerLastNameFeedback" required>
        
-        </div>
+    </div>
+
+    <div id="validationServerLastNameFeedback" class="invalid-feedback">
+        Please Enter a Last Name.
+    </div>
    <div class="mb-3">
     <label for="studentid" class="form-label">Student ID</label>
-    <input type = number class="form-control"  name = studentid id = 'studentid'>
+    <input type = number class="form-control is-invalid has-validation"  name = studentid id = 'studentid' aria-describedby="validationServerStudentIDFeedback" required>
     
     </div> 
    
+    <div id="validationServerStudentIDFeedback" class="invalid-feedback">
+        Please Enter a Student ID.
+    </div>
     <div class="mb-3">
         <label for="num_of_tickets" class="form-label">Number Of Tickets</label>
-        <select class="form-select" aria-label="num_of_tickets" id = num_of_tickets>
-            <option selected>Choose a Value</option>
+        <select class="form-select is-invalid" aria-label="num_of_tickets" id = num_of_tickets aria-describedby="validationServerTicketsFeedback" required>
+            <option selected disabled value>Choose.....</option>
             {% for tickets in max_tickets%}
             <option type = number value={{tickets}}>{{tickets}}</option>
             {%endfor%}
             
             
     </div>
-   
+    <div id="validationServerTicketsFeedback" class="invalid-feedback">
+        Please Choose a Value.
+    </div>
+
+    <div style="pad: 20px;">
+        <input type="submit" aria-placeholder="Submit">
+    </div>
   
 </form>
 {%endblock%}
