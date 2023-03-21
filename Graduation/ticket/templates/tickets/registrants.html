@@ -1,21 +1,21 @@
 {% extends 'tickets/layout.html'%}
 {%block body%}
-
+<a style = "margin:40px; padding-left: 10px; padding-bottom: 10px;"href="{% url 'index' %}">Home</a>
 <h1 style = "padding-left: 10px;">You Have Already Registered, with this Information: </h1>
-<br>
-<a style = "padding-left: 5px;"href="{% url 'index' %}">Home</a>
+<table>
+       <tr><td style = "font-size: 50px; padding-left: 10px;">First Name: {{info.first_name}}</td></tr> 
+        <tr><td td style = "font-size: 50px; padding-left: 10px;">Last Name: {{info.last_name}}</td></tr>
+        <tr><td td style = "font-size: 50px; padding-left: 10px;">Student ID: {{info.studentID}}</td></tr>
+        <tr><td td style = "font-size: 50px; padding-left: 10px;">Tickets Ordered: {{info.tickets_ordered}}</td></tr>
+</table>
+
 <br>
 {%if message%}
         <div>
             <h3 style = "color: red; padding-left: 10px;"> Student ID Does Not Exist OR Was Entered Incorrectly</h3> 
         </div>
 {%endif%}
-    <tr>
-        <td>{{information.first_name}}</td>
-        <td>{{information.Last_name}}</td>
-        <td>{{information.studentID}}</td>
-        <td>{{information.tickets_ordered}}</td>
-    </tr>
+
 
     <br>
 <p style = "padding-left: 10px;">To Change Your Information and Submit Another Form, Comlete the Questions Below:
