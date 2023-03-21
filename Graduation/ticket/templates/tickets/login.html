@@ -6,16 +6,21 @@
 {%endif%}
     <form action="{% url 'login' %}" method = "POST" >
         {%csrf_token%}
+        
         <div class="mb-3">
         <label style= "margin: 10px;"for="username" class="form-label">Username</label>
         <input class = "form-control" type ="text" name = 'username' id = 'username'>
         </div>
+
         <div class="mb-3">
         <label  style= "margin: 10px;" for="password" class="form-label">Password</label>
         <input class = "form-control" type="password" name = 'password'>
         </div>
+
+
         <div>
         <button  style= "margin: 10px;"class = "btn btn-primary" type="submit" name = 'submit'>Login</button>  
         </div>
+
       </form>
 {%endblock%}
