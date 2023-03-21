@@ -1,9 +1,23 @@
 {% extends 'tickets/layout.html'%}
 {% block body%}
-<h1>Welcome {{request.user.username}}</h1>
-<p> Welcome Graduate, to add a ticket click here:<a href="{% url 'add'%}">Tickets</a>. To make a new ticket request click here: <a href="">New Ticket Request</a>
+<h1 style = "padding-left: 10px; padding-bottom: 30px;">Welcome {{request.user.username}}</h1>
+<p style = "padding-left: 10px; font-size: 20px;"> Welcome Graduate,You did it. All the hard work and long hours you have poured into your degree are about to pay off. 
+    There’s still one thing left to do, so take a deep breath, relax and get ready to make a memory that will last a lifetime. Texas Wesleyan would like to cordially invite you, your friends 
+    and your family to share this precious moment. Let's Rams up. It’s time to walk the stage and graduate. 
     
-<div><a href="{% url 'logout' %}">Logout</a></div>
 </p>
+<br>
+<div style = "padding-left: 20px;">
+    Order Tickets Now >>> : <a href="{% url 'add'%}">Tickets</a>
+</div>
+<br>
+<div style = "padding-left: 20px;">
+    Edit Existing Ticket Requests Here >>> : <a href="">New Ticket Request</a>
+</div>
+<br>
+<div style = "margin: 20px";>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
 
 {%endblock%}
