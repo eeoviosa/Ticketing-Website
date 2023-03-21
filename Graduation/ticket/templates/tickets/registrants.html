@@ -1,14 +1,16 @@
 {% extends 'tickets/layout.html'%}
 {%block body%}
 
-<div></div><a style = "margin:40px; padding-left: 10px; padding-bottom: 10px;"href="{% url 'index' %}">Home</a></div>
+<div style = "background-color: aquamarine;"><a style = "margin:40px; padding-left: 10px; padding-bottom: 10px;"href="{% url 'index' %}">Home</a></div>
 <h1 style = "padding-left: 10px;">You Have Already Registered, with this Information: </h1>
-<table>
+<div style = 'background-color: blueviolet;'>
+<table style = "font-family: 'Times New Roman', Times, serif;" >
        <tr><td style = "font-size: 50px; padding-left: 10px;">First Name: {{info.first_name}}</td></tr> 
         <tr><td td style = "font-size: 50px; padding-left: 10px;">Last Name: {{info.last_name}}</td></tr>
         <tr><td td style = "font-size: 50px; padding-left: 10px;">Student ID: {{info.studentID}}</td></tr>
         <tr><td td style = "font-size: 50px; padding-left: 10px;">Tickets Ordered: {{info.tickets_ordered}}</td></tr>
 </table>
+</div>
 
 <br>
 {%if message%}
@@ -19,7 +21,9 @@
 
 
     <br>
+    <div  style = "background-color: aquamarine;">
 <p style = "padding-left: 10px;">To Change Your Information and Submit Another Form, Comlete the Questions Below:
+</div>
     <form action="{% url 'newForm'%}" method = 'POST'>
  {%csrf_token%}
     <div class="mb-3 form-check">
@@ -32,11 +36,11 @@
         <input type="Text" class="form-control"  name = 'id' id="exampleCheck1" required >
         
       </div>
-      <button style = "margin: 10px;"type="submit" class="btn btn-primary">Submit</button>
+      <button style = " margin: 10px;"type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <br>
-<div style = "margin: 20px";>
+<div style = "background-color: aquamarine; padding-left: 40px;">
     <a href="{% url 'logout' %}">Logout</a>
 </div>
 
