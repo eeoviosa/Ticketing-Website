@@ -1,24 +1,24 @@
 {% extends 'tickets/layout.html'%}
 {%block body%}
 
-<h1>You Have Already Registered, with this Information: </h1>
+<h1 style = "padding-left: 10px;">You Have Already Registered, with this Information: </h1>
 <br>
-<a href="{% url 'index' %}">Home</a>
+<a style = "padding-left: 5px;"href="{% url 'index' %}">Home</a>
 <br>
 {%if message%}
         <div>
-            <h3 style = "color: red;"> Student ID Does Not Exist OR Was Entered Incorrectly</h3> 
+            <h3 style = "color: red; padding-left: 10px;"> Student ID Does Not Exist OR Was Entered Incorrectly</h3> 
         </div>
 {%endif%}
     <tr>
-        <td>{{Information.first_name}}</td>
+        <td>{{information.first_name}}</td>
         <td>{{information.Last_name}}</td>
         <td>{{information.studentID}}</td>
         <td>{{information.tickets_ordered}}</td>
     </tr>
 
     <br>
-<p>To Change Your Information and Submit Another Form, Comlete the Questions Below:
+<p style = "padding-left: 10px;">To Change Your Information and Submit Another Form, Comlete the Questions Below:
     <form action="{% url 'newForm'%}" method = 'POST'>
  {%csrf_token%}
     <div class="mb-3 form-check">
@@ -31,7 +31,7 @@
         <input type="Text" class="form-control"  name = 'id' id="exampleCheck1" required >
         
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button style = "margin: 10px;"type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 {%endblock%}

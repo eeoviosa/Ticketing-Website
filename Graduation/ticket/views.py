@@ -23,7 +23,7 @@ def add(request):
     if request.method == "POST":
         users = Ticket_Request(first_name = request.POST["first"], last_name = request.POST["last"], studentID = request.POST["sid"], tickets_ordered = request.POST["tickets_number"])
         if Ticket_Request.objects.filter(studentID = request.POST['sid']):
-            return render(request, 'tickets/registrants.html', {'information':Ticket_Request.objects.all(),
+            return render(request, 'tickets/registrants.html', {'information':Ticket_Request.objects.get(studentID = request.POST["sid"]),
                                                                     'id' : request.POST["sid"]
                                                             })
         users.save()
