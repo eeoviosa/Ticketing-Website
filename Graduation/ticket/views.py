@@ -21,13 +21,15 @@ def add(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login") )
     if request.method == "POST":
-        users = Ticket_Request(first_name = request.POST["first"], last_name = request.POST["last"], studentID = request.POST["id"], tickets_ordered = request.POST["tickets_number"])
+        users = Ticket_Request(first_name = request.POST["first"], last_name = request.POST["last"], studentID = request.POST["sid"], tickets_ordered = request.POST["tickets_number"])
+        if Ticket_Request.objects.filter(studentID = request.POST['sid']):
+            return render(request, 'tickets/registrants.html', {'information':Ticket_Request.objects.all(),
+                                                                    'id' : request.POST["sid"]
+                                                            })
         users.save()
-        return render(request, 'tickets/confirm.html',
-                                    {
-                                        "users": Ticket_Request.objects.all().values()
-                            
-                                    })
+        return render(request, 'tickets/confirm.html')
+        
+
     return render(request, 'tickets/ticket_form.html', {
         "max_tickets": range(1, max_tickets + 1)
     })
@@ -47,4 +49,12 @@ def logn(request):
                           {"message": message})
     return render(request, 'tickets/login.html')
    
-    
+def newForm(request):
+    try:
+        user = Ticket_Request.objects.get(studentID = request.POST["id"])
+        user.delete()
+        return HttpResponseRedirect(reverse(add))
+    except Exception:
+        return render(request, 'tickets/registrants.html', {'message': "Student ID Not in Database or Typed Incorrectly"})
+
+
