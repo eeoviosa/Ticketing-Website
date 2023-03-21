@@ -1,5 +1,6 @@
 {% extends 'tickets/layout.html'%}
 {%block body%}
+<div style = "background-color: yellow;height: 40px;"><a style = "margin:40px; padding-left: 10px; padding-bottom: 40px;"href="{% url 'index' %}">Home</a></div>
 <form action = "{% url 'add' %}" method="post">
     {%csrf_token%}
    <div class="mb-3"> 
@@ -47,4 +48,9 @@
     </div>
   
 </form>
+
+<br>
+<div style = "background-color: yellow; padding-left: 10px;";>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
 {%endblock%}

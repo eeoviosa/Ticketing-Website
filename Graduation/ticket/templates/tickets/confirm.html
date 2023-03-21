@@ -1,5 +1,11 @@
 {% extends 'tickets/layout.html'%}
 
 {%block body%}
+<div><a style = "margin:40px; padding-left: 10px; padding-bottom: 10px;"href="{% url 'index' %}">Home</a>
+<a style = "padding-left: 10px;"href="{% url 'logout' %}">Logout</a>
+</div>
 <h1>You Have Succesfully Submitted the Form!</h1>
+
+<br>
+
 {%endblock%}

@@ -1,6 +1,7 @@
 {% extends 'tickets/layout.html'%}
 {%block body%}
-<a style = "margin:40px; padding-left: 10px; padding-bottom: 10px;"href="{% url 'index' %}">Home</a>
+
+<div></div><a style = "margin:40px; padding-left: 10px; padding-bottom: 10px;"href="{% url 'index' %}">Home</a></div>
 <h1 style = "padding-left: 10px;">You Have Already Registered, with this Information: </h1>
 <table>
        <tr><td style = "font-size: 50px; padding-left: 10px;">First Name: {{info.first_name}}</td></tr> 
@@ -33,5 +34,10 @@
       </div>
       <button style = "margin: 10px;"type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<br>
+<div style = "margin: 20px";>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
 
 {%endblock%}
