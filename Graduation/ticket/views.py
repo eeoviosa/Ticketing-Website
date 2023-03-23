@@ -52,7 +52,8 @@ def add(request):
 
 def logt(request):
     logout(request)
-    return render(request, 'tickets/login.html' )
+    return render(request, 'tickets/login.html', {"check": "You have logged out succesfully!"
+                                                  })
 
 def editForm(request):
     return render(request, 'tickets/registrants.html')
