@@ -69,7 +69,7 @@ def logn(request):
     return render(request, 'tickets/login.html')
    
 def newForm(request):
-    #try: 
+    try: 
         user = Ticket_Request.objects.get(studentID = request.POST["id"])
         if(int(user.tickets_ordered) < base_tickets):
             new = cache.get("rem_tickets")  - (base_tickets - int(user.tickets_ordered))
@@ -79,8 +79,8 @@ def newForm(request):
             cache.set("rem_tickets", (cache.get("rem_tickets") + int(user.extra_tickets)))
         user.delete()
         return HttpResponseRedirect(reverse(add))
-    #except Exception:
-        #return render(request, 'tickets/registrants.html', {'message': "Student ID Not in Database or Typed Incorrectly", 
-                                                            #"available": cache.get("rem_tickets")})
+    except Exception:
+        return render(request, 'tickets/registrants.html', {'message': "Student ID Not in Database or Typed Incorrectly", 
+                                                            "available": cache.get("rem_tickets")})
 
 
