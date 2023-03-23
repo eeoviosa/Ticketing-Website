@@ -35,9 +35,8 @@ def add(request):
                 "available": cache.get("rem_tickets")
             })
         users.save()
-        if(int(request.POST["base_number"]) < base_tickets):
-                free = cache.get("rem_tickets") + (int(base_tickets - request.POST["base_number"]))
-                cache.set("rem_tickets", free)
+        free = cache.get("rem_tickets") + (base_tickets - int(request.POST["base_number"]))
+        cache.set("rem_tickets", free)
         curr = cache.get("rem_tickets") - int(request.POST["extra_number"])
         cache.set("rem_tickets", curr)
         return render(request, 'tickets/confirm.html', {"available": cache.get("rem_tickets")})
@@ -53,8 +52,8 @@ def logt(request):
     logout(request)
     return render(request, 'tickets/login.html' )
 
-def registrants(request):
-    return 
+def editForm(request):
+    render(request, 'ticket/register.html')
    
 def logn(request):
     if request.method == 'POST':
@@ -70,9 +69,9 @@ def logn(request):
 def newForm(request):
     try: 
         user = Ticket_Request.objects.get(studentID = request.POST["id"])
-        new = cache.get("rem_tickets")  - (int(base_tickets - request.POST["extra_tickets"]))
-        cache.set("rem_tickets", new)
-        user = Ticket_Request.objects.get(studentID = request.POST["id"])
+        if(base_tickets < int(user.tickets_ordered)):
+            new = cache.get("rem_tickets")  - (base_tickets - int(user.tickets_ordered))
+        cache.set("rem_tickets", (new + int(user.extra_tickets)))
         user.delete()
         return HttpResponseRedirect(reverse(add))
     except Exception:

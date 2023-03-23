@@ -10,6 +10,8 @@
   </div>
 
 <div style = "background-color: aquamarine;"><a style = "margin:40px; padding-left: 10px; padding-bottom: 10px;"href="{% url 'index' %}">Home</a></div>
+
+{% if info%}
 <h1 style = "padding-left: 10px;">You Have Already Registered, with this Information: </h1>
 <div style = 'background-color: blueviolet;'>
 
@@ -22,6 +24,7 @@
 </table>
 
 </div>
+{%endif%}
 <br>
 {%if message%}
         <div>

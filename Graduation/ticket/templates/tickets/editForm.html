@@ -22,7 +22,7 @@
 <p style = "padding-left: 10px;">To Change Your Information and Submit Another Form, Comlete the Questions Below:
 </div>
 
-    <form action="{% url 'newForm'%}" method = 'POST'>
+    <form action="{% url 'registrants'%}" method = 'POST'>
  {%csrf_token%}
     <div class="mb-3 form-check">
         <input type="checkbox" class="form-control-input" id="exampleCheck1" required>

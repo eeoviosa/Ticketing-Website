@@ -6,5 +6,6 @@ urlpatterns = [
     path("", views.index, name = "index"),
     path("add", views.add, name ='add'),
     path("logout", views.logt, name = 'logout'),
-    path("newForm", views.newForm, name = "newForm")
+    path("newForm", views.newForm, name = "newForm"),
+    path("editForm", views.editForm, name = 'editForm')
 ]
