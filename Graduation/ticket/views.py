@@ -35,10 +35,12 @@ def add(request):
                 "available": cache.get("rem_tickets")
             })
         users.save()
-        free = cache.get("rem_tickets") + (base_tickets - int(request.POST["base_number"]))
-        cache.set("rem_tickets", free)
-        curr = cache.get("rem_tickets") - int(request.POST["extra_number"])
-        cache.set("rem_tickets", curr)
+        if(int(request.POST["base_number"]) < base_tickets):
+            free = cache.get("rem_tickets")  + (base_tickets - int(request.POST["base_number"]))
+            free = (free - int(request.POST["extra_number"]))
+            cache.set("rem_tickets", free)
+        else:
+            cache.set("rem_tickets", (cache.get("rem_tickets") - int(request.POST["extra_number"])))
         return render(request, 'tickets/confirm.html', {"available": cache.get("rem_tickets")})
         
 
@@ -53,7 +55,7 @@ def logt(request):
     return render(request, 'tickets/login.html' )
 
 def editForm(request):
-    render(request, 'ticket/register.html')
+    return render(request, 'tickets/registrants.html')
    
 def logn(request):
     if request.method == 'POST':
@@ -67,15 +69,18 @@ def logn(request):
     return render(request, 'tickets/login.html')
    
 def newForm(request):
-    try: 
+    #try: 
         user = Ticket_Request.objects.get(studentID = request.POST["id"])
-        if(base_tickets < int(user.tickets_ordered)):
+        if(int(user.tickets_ordered) < base_tickets):
             new = cache.get("rem_tickets")  - (base_tickets - int(user.tickets_ordered))
-        cache.set("rem_tickets", (new + int(user.extra_tickets)))
+            new = (new + int(user.extra_tickets))
+            cache.set("rem_tickets", new)
+        else:
+            cache.set("rem_tickets", (cache.get("rem_tickets") + int(user.extra_tickets)))
         user.delete()
         return HttpResponseRedirect(reverse(add))
-    except Exception:
-        return render(request, 'tickets/registrants.html', {'message': "Student ID Not in Database or Typed Incorrectly", 
-                                                            "available": cache.get("rem_tickets")})
+    #except Exception:
+        #return render(request, 'tickets/registrants.html', {'message': "Student ID Not in Database or Typed Incorrectly", 
+                                                            #"available": cache.get("rem_tickets")})
 
 
