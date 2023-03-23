@@ -9,7 +9,8 @@ from django.core.cache import cache
 # Create your views here.
 if cache.get("rem_tickets") == None:
     cache.set("rem_tickets", 100)
-max_tickets = 4
+extra_tickets = 5
+base_tickets = 6
 message = 'Invalid Credentials'
 
 def index(request):
@@ -28,19 +29,23 @@ def add(request):
             info = Ticket_Request.objects.get(studentID = request.POST["sid"])
             return render(request, 'tickets/registrants.html', {'info': info,
                                                                 "available": cache.get("rem_tickets")})
-        elif(int(request.POST["tickets_number"]) > cache.get("rem_tickets")):
+        elif(int(request.POST["extra_number"]) > cache.get("rem_tickets")):
             return render(request, "tickets/ticket_form.html", {
-                "message": "Number of Tickets Ordered exceed the Number of Tickets Available, Adjust the Amount Ordered",
+                "message": "Number of Extra Tickets Ordered exceed the Number of Tickets Available, Adjust the Amount Ordered",
                 "available": cache.get("rem_tickets")
             })
         users.save()
-        curr = cache.get("rem_tickets") - int(request.POST["tickets_number"])
+        if(int(request.POST["base_number"]) < base_tickets):
+                free = cache.get("rem_tickets") + (int(base_tickets - request.POST["base_number"]))
+                cache.set("rem_tickets", free)
+        curr = cache.get("rem_tickets") - int(request.POST["extra_number"])
         cache.set("rem_tickets", curr)
         return render(request, 'tickets/confirm.html', {"available": cache.get("rem_tickets")})
         
 
     return render(request, 'tickets/ticket_form.html', {
-        "max_tickets": range(1, max_tickets + 1),
+        "base_tickets": range(1, base_tickets + 1),
+        "extra_tickets": range(1, extra_tickets + 1),
         "available": cache.get("rem_tickets")
     })
 
@@ -48,6 +53,8 @@ def logt(request):
     logout(request)
     return render(request, 'tickets/login.html' )
 
+def registrants(request):
+    return 
    
 def logn(request):
     if request.method == 'POST':
@@ -62,7 +69,8 @@ def logn(request):
    
 def newForm(request):
     try: 
-        new = cache.get("rem_tickets") + int(request.POST["ticket_order"])
+        user = Ticket_Request.objects.get(studentID = request.POST["id"])
+        new = cache.get("rem_tickets")  - (int(base_tickets - request.POST["extra_tickets"]))
         cache.set("rem_tickets", new)
         user = Ticket_Request.objects.get(studentID = request.POST["id"])
         user.delete()
