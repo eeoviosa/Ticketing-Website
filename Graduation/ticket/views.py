@@ -23,7 +23,7 @@ def add(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login") )
     if request.method == "POST":
-        users = Ticket_Request(first_name = request.POST["first"], last_name = request.POST["last"], studentID = request.POST["sid"], tickets_ordered = request.POST["tickets_number"])
+        users = Ticket_Request(first_name = request.POST["first"], last_name = request.POST["last"], studentID = request.POST["sid"], tickets_ordered = request.POST["base_number"], extra_tickets = request.POST["extra_number"])
         if Ticket_Request.objects.filter(studentID = request.POST['sid']):
             info = Ticket_Request.objects.get(studentID = request.POST["sid"])
             return render(request, 'tickets/registrants.html', {'info': info,

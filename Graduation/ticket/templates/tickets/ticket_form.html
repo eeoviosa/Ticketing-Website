@@ -39,10 +39,22 @@
         Please Enter a Student ID.
     </div>
     <div class="mb-3">
-        <label for="num_of_tickets" class="form-label">Number Of Tickets</label>
-        <select type = number class="form-select is-invalid" name = "tickets_number" id = num_of_tickets aria-describedby="validationServerTicketsFeedback" required>
+        <label for="base_num_of_tickets" class="form-label">Number Of Tickets</label>
+        <select type = number class="form-select is-invalid" name = "base_number" id = base_num_of_tickets aria-describedby="validationServerTicketsFeedback" required>
             <option selected disabled value>Choose.....</option>
-            {% for tickets in max_tickets%}
+            {% for tickets in base_tickets%}
+            <option type = number value={{tickets}}>{{tickets}}</option>
+            {%endfor%}
+        </select>
+            
+
+    </div>
+
+    <div class="mb-3">
+        <label for="extra_num_of_tickets" class="form-label">Number Of Tickets</label>
+        <select type = number class="form-select is-invalid" name = "extra_number" id = extra_num_of_tickets aria-describedby="validationServerTicketsFeedback" required>
+            <option selected disabled value>Choose.....</option>
+            {% for tickets in extra_tickets%}
             <option type = number value={{tickets}}>{{tickets}}</option>
             {%endfor%}
         </select>
