@@ -1,78 +1,141 @@
 {% extends 'tickets/layout.html'%}
+
 {%block body%}
-<div class="alert alert-primary d-flex align-items-center" role="alert">
-    <svg style = "height: 20px;" xmlns="http://www.w3.org/2000/svg" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </svg>
-    <div>
-      Hurry and Place orders for Tickets if You havent Already. There are {{available}} Extra Tickets Remaining!
-    </div>
-  </div>
+<div id="holder">
 
-<div style = "background-color: yellow;height: 40px;"><a style = "margin:40px; padding-left: 10px; padding-bottom: 40px;"href="{% url 'index' %}">Home</a></div>
-<form action = "{% url 'add' %}" method="post">
-    {%csrf_token%}
-   <div class="mb-3"> 
-    <label for="firstname" class="form-label" >First Name</label>
-    <input type = Text class="form-control is-invalid has-validation"  name = "first" id = 'firstname' aria-describedby="validationServerFirstNameFeedback" required>
-    </div>
-    <div id="validationServerFirstNameFeedback" class="invalid-feedback">
-      Please Enter a First Name.
-    </div>
+        <div style = "padding-bottom: 600px;" id="body">
+          {%if message%}
+            <div>
+                <h3 style = "color: red; padding-left: 10px;"> {{message}}</h3>
+            </div>
+          {%endif%}
+            <div style = "align-content: center; margin-top: 15px;" >
+                <form class = "was-validated"action = "{% url 'add' %}" method="post">
+                    {%csrf_token%}
+                    <div class="form-check mb-3">
+                        <label for="firstname" class="form-label" >First Name</label>
+                        <input type = Text class="form-control"  name = "first" id = 'firstname' aria-describedby="validationServerFirstNameFeedback" required>
+                    </div>
 
-    <div class="mb-3"> 
-        <label for="lastname" class="form-label">Last Name</label>
-        <input type = Text class="form-control is-invalid has-validation"  name = "last" id = 'lastname' aria-describedby="validationServerLastNameFeedback" required>
-       
-    </div>
+                    <div id="validationServerFirstNameFeedback" class="invalid-feedback">
+                        Please Enter a First Name.
+                    </div>
 
-    <div id="validationServerLastNameFeedback" class="invalid-feedback">
-        Please Enter a Last Name.
-    </div>
-   <div class="mb-3">
-    <label for="studentid" class="form-label">Student ID</label>
-    <input type = number class="form-control is-invalid has-validation"  name = "sid" id = 'studentid' aria-describedby="validationServerStudentIDFeedback" required>
-    
-    </div> 
-   
-    <div id="validationServerStudentIDFeedback" class="invalid-feedback">
-        Please Enter a Student ID.
-    </div>
-    <div class="mb-3">
-        <label for="base_num_of_tickets" class="form-label">Base Tickets</label>
-        <select type = number class="form-select is-invalid" name = "base_number" id = base_num_of_tickets aria-describedby="validationServerTicketsFeedback" required>
-            <option selected disabled value>Choose.....</option>
-            {% for tickets in base_tickets%}
-            <option type = number value={{tickets}}>{{tickets}}</option>
-            {%endfor%}
-        </select>
-            
+                    <div class="form-check mb-3">
+                        <label for="lastname" class="form-label">Last Name</label>
+                        <input type = Text class="form-control"  name = "last" id = 'lastname' aria-describedby="validationServerLastNameFeedback" required>
+                    </div>
 
-    </div>
+                    <div id="validationServerLastNameFeedback" class="invalid-feedback">
+                        Please Enter a Last Name.
+                    </div>
 
-    <div class="mb-3">
-        <label for="extra_num_of_tickets" class="form-label">Extra Tickets</label>
-        <select type = number class="form-select is-invalid" name = "extra_number" id = extra_num_of_tickets aria-describedby="validationServerTicketsFeedback" required>
-            <option selected disabled value>Choose.....</option>
-            {% for tickets in extra_tickets%}
-            <option type = number value={{tickets}}>{{tickets}}</option>
-            {%endfor%}
-        </select>
-            
+                  <div class="form-check mb-3">
+                        <label style = "margin-bottom: 0px;" for="studentid" class="form-label">Student ID</label>
+                        <div style = "padding-top:0px; margin:0px; font-weight:bold;" id="below" class="form-text">Enter your txwes student id without the leading zeros.</div>
+                        <input type = number class="form-control"  name = "sid" id = 'studentid' aria-describedby="validationServerStudentIDFeedback below" required>
+                    </div>
 
-    </div>
-    <div id="validationServerTicketsFeedback" class="invalid-feedback">
-        Please Choose a Value.
-    </div>
+                    <div id="validationServerStudentIDFeedback" class="invalid-feedback">
+                        Please Enter a Student ID.
+                    </div>
 
-    <div>
-        <input  style="margin: 10px; color:blue;" type="submit" aria-placeholder="Submit">
-    </div>
-  
-</form>
+                    <div id="validationServerTicketsFeedback" class="invalid-feedback">
+                        Please Choose a Value.
+                    </div>
 
-<br>
-<div style = "background-color: yellow; padding-left: 10;";>
-    <a href="{% url 'logout' %}">Logout</a>
+                    <div class="form-check mb-3">
+                        <label  style = "padding-bottom:0px; margin:0px;" for="base_num_of_tickets" class="form-label">Base Tickets</label>
+                        <div style = "padding-top:0px; margin:0px; font-weight:bold;" id="info" class="form-text">All graduates have a base ticket of {{base}}, please choose how many you will need.</div>
+                        <select type = number class="form-select" name = "base_number" id = base_num_of_tickets aria-describedby="validationServerTicketsFeedback info" required>
+                            <option selected disabled value>Choose.....</option>
+                            {% for tickets in base_tickets%}
+                            <option type = number value={{tickets}}>{{tickets}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+
+                  <!--  <div class="form-check mb-3">
+                        <label style = "padding-bottom:0px; margin:0px;" for="extra_num_of_tickets" class="form-label">Extra Tickets</label>
+                        <div style = "padding-top:0px; margin:0px; font-weight:bold;" id="extra_info" class="form-text">Select how many additional tickets you would need if any.</div>
+                        <select type = number class="form-select" name = "extra_number" id = extra_num_of_tickets aria-describedby="validationServerTicketsFeedback extra_info" required>
+                            <option selected disabled value>Choose.....</option>
+                            <option type = number value = 0>0</option>
+                            {% for tickets in extra_tickets%}
+                            <option type = number value={{tickets}}>{{tickets}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    -->
+
+                    <div>
+                        <input  style="margin: 10px; color:blue;" type="submit" aria-placeholder="Submit">
+                    </div>
+
+                </form>
+            </div>
+          <table class = "center">
+                      <tr style = "text-align:center;">
+                          <th class = "center" style = "text-align:center;">Who To Contact</th>
+                      </tr>
+                      <tr>
+                          <td>Hector Quintanilla, Ph.D., CPA
+                          <br>
+                              Provost and Senior Vice President
+                          <br>
+                              817-531-4405
+                          <br>
+                              hquintanilla@txwes.edu
+                          </td>
+                          <td>K. Helena Bussell, Ph.D.
+                          <br>
+                              Associate Provost
+                          <br>
+                              817-531-4405
+                          <br>
+                              hbussell@txwes.edu
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Steven Daniell, Ph.D.
+                              <br>
+                              Associate Provost
+                              <br>
+                              817-531-4405
+                              <br>
+                              sdaniell@txwes.edu
+                          </td>
+
+                          <td>Tammy Titlow
+                          <br>
+                              Executive Academic Administrator
+                              <br>
+                              817-531-4470
+                              <br>
+                              tltitlow@txwes.edu
+                              <br>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Cynthia Cedillo
+                          <br>
+                              Administrative Assistant
+                          <br>
+                              817-531-4292
+                          <br>
+                              cacedillo@txwes.edu
+                          </td>
+                      </tr>
+
+                  </table>
+        </div>
+
+        <footer style = "margin-top: 0px; height: 600px;">
+
+            <div style = "background-color: black;height:100%;" class ="box">
+
+            </div>
+        </footer>
 </div>
+
 {%endblock%}

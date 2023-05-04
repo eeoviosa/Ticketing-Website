@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from csv import reader
 from django.contrib.auth.models import User
 
@@ -13,21 +13,27 @@ class Command(BaseCommand):
         with open(kwargs['file_directory'], 'r') as csv_file:
             read = reader(csv_file)
             _ = next(read)
+            __ = next(read)
 
             for user in read:
-                firstname = user[0]
+                firstname = user[2]
                 lastname = user[1]
-                email = user[2]
-                username = firstname[0] + lastname
-                password = lastname + 'txwes'
+                email = user[13]
+                lis = email.split('@')
+                username = lis[0]
+                id = user[0]
+                password = "Txwe$" + str(id)
                 if User.objects.filter(username=username).exists():
                      self.stdout.write('Username "%s" already exists' %username)
                 else:
                     user = User(username=username)
-                    user.set_password(password)
                     user.first_name = firstname
+                    user.set_password(password)
                     user.last_name = lastname
                     user.email = email
+                    user.save()
+                    user = User.objects.get(username = username)
+                    user.student.sid = id
                     user.save()
                     self.stdout.write("User Created Succesfully")
 

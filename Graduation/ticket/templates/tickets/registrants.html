@@ -1,60 +1,62 @@
 {% extends 'tickets/layout.html'%}
+
 {%block body%}
-<div class="alert alert-primary d-flex align-items-center" role="alert">
-    <svg style = "height: 20px;" xmlns="http://www.w3.org/2000/svg" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </svg>
-    <div>
-      Hurry and Place orders for Tickets if You havent Already. There are {{available}} Extra Tickets Remaining!
-    </div>
-  </div>
+<div id = "holder">
+      <div id="body" style = "padding-bottom: 500px;">
 
-<div style = "background-color: aquamarine;"><a style = "margin:40px; padding-left: 10px; padding-bottom: 10px;"href="{% url 'index' %}">Home</a></div>
+        {% if info%}
+            <h1 style = "padding-left: 10px;">You Have Already Registered, with this Information: </h1>
+            <div style = 'background-color: aquamarine;'>
+                <table style = "font-family: 'Times New Roman', Times, serif;" >
+                    <tr><td style = "font-size: 50px; padding-left: 10px;">First Name: {{info.first_name}}</td></tr>
+                    <tr><td td style = "font-size: 50px; padding-left: 10px;">Last Name: {{info.last_name}}</td></tr>
+                    <tr><td td style = "font-size: 50px; padding-left: 10px;">Student ID: {{info.studentID}}</td></tr>
+                    <tr><td td style = "font-size: 50px; padding-left: 10px;">Base Tickets: {{info.tickets_ordered}}</td></tr>
+                    <tr><td td style = "font-size: 50px; padding-left: 10px;">Extra Tickets: {{info.extra_tickets}}</td></tr>
+                </table>
+            </div>
+        {%endif%}
+        <br>
 
-{% if info%}
-<h1 style = "padding-left: 10px;">You Have Already Registered, with this Information: </h1>
-<div style = 'background-color: blueviolet;'>
+        {%if message%}
+            <div>
+                <h3 style = "color: red; padding-left: 10px;"> {{message}}</h3>
+            </div>
+        {%endif%}
+        <br>
 
-<table style = "font-family: 'Times New Roman', Times, serif;" >
-       <tr><td style = "font-size: 50px; padding-left: 10px;">First Name: {{info.first_name}}</td></tr> 
-        <tr><td td style = "font-size: 50px; padding-left: 10px;">Last Name: {{info.last_name}}</td></tr>
-        <tr><td td style = "font-size: 50px; padding-left: 10px;">Student ID: {{info.studentID}}</td></tr>
-        <tr><td td style = "font-size: 50px; padding-left: 10px;">Base Tickets: {{info.tickets_ordered}}</td></tr>
-        <tr><td td style = "font-size: 50px; padding-left: 10px;">Extra Tickets: {{info.extra_tickets}}</td></tr>
-</table>
-
-</div>
-{%endif%}
-<br>
-{%if message%}
-        <div>
-            <h3 style = "color: red; padding-left: 10px;"> Student ID Does Not Exist OR Was Entered Incorrectly</h3> 
+        <div  style = "background-color: aquamarine;">
+        <p style = "padding-left: 10px;">To Change Your Information and Submit Another Form, Complete the Questions Below:
         </div>
-{%endif%}
-    <br>
-    <div  style = "background-color: aquamarine;">
-<p style = "padding-left: 10px;">To Change Your Information and Submit Another Form, Comlete the Questions Below:
-</div>
 
-    <form action="{% url 'newForm'%}" method = 'POST'>
- {%csrf_token%}
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-control-input" id="exampleCheck1" required>
-        <label class="form-check-label" for="exampleCheck1">Are You Sure You Want To Edit Your Submission? Previous Data Will be Deleted</label>
+        <form class ='was-validated'action = "{% url 'newForm'%}" method = 'POST'>
+            {%csrf_token%}
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-control-input" id="exampleCheck1" required>
+                <label class="form-check-label" for="exampleCheck1">Are You Sure You Want To Edit Your Submission? Previous Data Will be Deleted</label>
+            </div>
+
+            <div class="mb-3 form-check">
+                <label style = "margin-bottom: 0px;"class="form-label" type = num for="exampleCheck1">Enter Your Student ID </label>
+                <div style = "padding-top:0px; margin:0px; font-weight:bold;" id="below" class="form-text">Enter your txwes student id without the leading zeros.</div>
+                <input type= number class="form-control"  name = 'id' id="exampleCheck1" aria-describedby="validationServerStudentIDFeedback below"required >
+                <input type = "hidden" name = 'ticket_order' value = {{info.tickets_ordered}}>
+            </div>
+
+            <div id="validationServerStudentIDFeedback" class="invalid-feedback">
+                  Please Enter a Valid Student ID.
+             </div>
+            <button style = " margin: 10px;"type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <br>
+
+    <footer style = "height: 500px;">
+
+        <div style = " height: 100%; background-color: black;" class ="box">
+
+        </div>
+    </footer>
     </div>
-
-    <div class="mb-3 form-check">
-        <label class="form-check-label" type = num for="exampleCheck1">Enter Your Student ID </label>
-        <input type="Text" class="form-control"  name = 'id' id="exampleCheck1" required >
-        <input type = "hidden" name = 'ticket_order' value = {{info.tickets_ordered}}>
-        
-      </div>
-      <button style = " margin: 10px;"type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<br>
-<div style = "background-color: aquamarine; padding-left: 40px;">
-    <a href="{% url 'logout' %}">Logout</a>
 </div>
 
 {%endblock%}
